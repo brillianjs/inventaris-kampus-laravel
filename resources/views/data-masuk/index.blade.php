@@ -1,13 +1,16 @@
 @extends('layouts.app')
-@section('title', 'Data Barang')
+@section('title', 'Data Barang Masuk')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center py-3">
-            <div class="col-md-12">
+
+    <div class="container bg-light" style="width:100%;">
+        <div class="row justify-content-center">
+            <div class="col-md-12 bg-light">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        {{ __('Data Inventaris') }}
+                        <a href="{{ route('export-data-masuk') }}" class="btn btn-warning">
+                            <i class="fa-solid fa-file-arrow-down"></i> Export Data
+                        </a>
                         <div>
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#modalImportData">
@@ -21,14 +24,30 @@
                     </div>
 
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert" id="disposableAlert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert" id="disposableAlert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('edited'))
+                            <div class="alert alert-primary" role="alert" id="disposableAlert">
+                                {{ session('edited') }}
+                            </div>
+                        @endif
                         <div class="table-responsive">
-                            <table class="table table-responsive table-bordered table-striped table-hover" id="data-barang">
+                            <table class="table table-responsive table-bordered table-striped table-hover" id="data-masuk">
                                 <thead>
                                     <tr class="align-middle text-center">
                                         <th>No</th>
-                                        <th>Kode Barang</th>
+                                        <th>Kode Masuk</th>
                                         <th>Item</th>
                                         <th>Merek Barang </th>
+                                        <th>Jumlah Barang</th>
                                         <th>Harga Barang</th>
                                         <th>Status Barang</th>
                                         <th>Aksi</th>
@@ -42,6 +61,7 @@
                                             <td class="text-center">{{ $row->kd_barang }}</td>
                                             <td class="text-center">{{ $row->item_barang }}</td>
                                             <td class="text-center">{{ $row->merek_barang }}</td>
+                                            <td class="text-center">{{ $row->jml_barang }}</td>
                                             <td class="text-center">{{ $row->hrg_barang }}</td>
                                             <td class="text-center">{{ $row->sts_barang }}</td>
                                             <td class="text-center">
@@ -55,9 +75,9 @@
                                                 </button>
                                             </td>
                                         </tr>
-                                        @include('data_barang.modals.delete')
+                                        @include('data-masuk.modals.delete')
                                         <?php $no++; ?>
-                                        @include('data_barang.modals.edit')
+                                        @include('data-masuk.modals.edit')
                                     @endforeach
                                 </tbody>
                             </table>
@@ -66,7 +86,7 @@
 
                 </div>
             </div>
-            {{-- <form action="{{ route('import-data-barang') }}" method="post" enctype="multipart/form-data">
+            {{-- <form action="{{ route('import-data-masuk') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="file">File</label>
@@ -77,7 +97,13 @@
             </form> --}}
         </div>
     </div>
-    @include('data_barang.modals.add')
-    @include('data_barang.modals.import')
+    @include('data-masuk.modals.add')
+    @include('data-masuk.modals.import')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        setTimeout(function() {
+            document.getElementById('disposableAlert').style.display = 'none';
+        }, 2000);
+    </script>
 
 @endsection

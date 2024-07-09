@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex">
-                    <h5 class="modal-title" id="editModalLabel">Edit Data Barang</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Data Barang Masuk</h5>
                     <p class="invisible">
                         {{ $row->kd_barang }}
                     </p>
@@ -12,8 +12,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form method="post" action="{{ route('edit-data-barang', $row->kd_barang) }}">
+            <form method="post" action="{{ route('edit-data-masuk', $row->kd_barang) }}">
                 @csrf
+                @method('PUT')
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="edit-kode" class="form-label">Kode Barang</label>
@@ -30,6 +31,12 @@
                                 id="edit_merek_barang" name="merek_barang">
                         </div>
                         <div class="mb-3 mt-3">
+                            <label for="edit-jumlah_barang" class="form-label">Harga
+                                Barang</label>
+                            <input type="number" value="{{ $row->jml_barang }}" class="form-control"
+                                id="edit_jumlah_barang" name="jml_barang">
+                        </div>
+                        <div class="mb-3 mt-3">
                             <label for="edit-harga_barang" class="form-label">Harga
                                 Barang</label>
                             <input type="number" value="{{ $row->hrg_barang }}" class="form-control"
@@ -40,10 +47,8 @@
                                 Barang</label>
                             <select class="form-select" id="edit_sts_barang" name="sts_barang">
                                 <option value="{{ $row->sts_barang }}">{{ $row->sts_barang }}</option>
-                                <option value="Baik">Baik</option>
-                                <option value="Rusak ringan">Rusak Ringan</option>
-                                <option value="Rusak sedang">Rusak Sedang</option>
-                                <option value="Disimpan">Disimpan</option>
+                                <option value="Baru">Baru</option>
+                                <option value="Bekas">Bekas</option>
                             </select>
                         </div>
                     </div>

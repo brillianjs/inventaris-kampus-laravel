@@ -14,11 +14,20 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- bootstrap icon -->
+    <!-- fontawesome icon -->
     <script src="https://kit.fontawesome.com/5f815bdce1.js" crossorigin="anonymous"></script>
+
+    <!-- Toaster -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Datatables -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     <style>
         p {
@@ -107,117 +116,135 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Sidebar -->
-        @auth
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <img src="/logo.png" alt="Logo UHB" style="width: 50px" height="50px">
-                    <h4 href="{{ url('/home') }}">
-                        SIMI
-                    </h4>
-                </div>
-                <ul class="list-unstyled components">
-                    <li class="{{ Request::is('home') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/home') }}" style="color: #fff; ">
-                            <i class="fa-sharp fa-solid fa-home"></i> <span>Beranda</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::is('data-barang') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/data-barang') }}" style="color: #fff">
-                            <i class="fa-sharp fa-solid fa-box"></i> <span>Data Barang</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::is('data') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/data-barang') }}" style="color: #fff">
-                            <i class="fa-sharp fa-solid fa-hand-holding"></i> <span>Data Peminjaman</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::is('data') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/data-barang') }}" style="color: #fff">
-                            <i class="fa-sharp fa-solid fa-warehouse"></i> <span>Data Penyimpanan</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::is('data') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/data-barang') }}" style="color: #fff">
-                            <i class="fa-sharp fa-solid fa-screwdriver-wrench"></i> <span>Data Perbaikan</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-        @endauth
-
-        <div id="content" class="bg-light" style="width: 100%">
-            <nav class="navbar navbar-expand-md shadow-sm" style="background-color:#242e4a; width:100%">
-                <div class="container py-3">
-                    <div id="content" style="margin-right:30px">
+    <div class="wrapper" style="margin-top: 80px; height:100vh; box-sizing:border-box">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md shadow-sm fixed-top"
+            style="background-color:#242e4a; width:100%; right:0; left:0">
+            <div class="container py-2">
+                @auth
+                    <div id="content" style="margin-right:60px">
                         <button type="button" id="sidebarCollapse" class="btn border">
                             <i class="fa fa-bars text-light"></i>
                         </button>
                     </div>
-                    <span class="navbar-brand text-light">
-                        @yield('title')
-                    </span>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <i class="fa-solid fa-bars"></i>
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                @endauth
+                <div class="d-flex justify-content-center align-items-center" style="height: 100%; width:fit-content">
+                    <img src="/logo.png" alt="Logo UHB" style="width: 50px; height: 50px; margin-right:10px">
+                    <a href="{{ url('/beranda') }}" class="text-decoration-none text-light">
+                        <h5 style="margin-bottom: 0;">SIMI
+                            @if (request()->path() !== '/')
+                                <span class="navbar-brand text-light mx-3">/</span>
+                            @endif
+                            <span class="navbar-brand text-light">
+                                @yield('title')
+                            </span>
+                        </h5>
+                    </a>
+                </div>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav me-auto">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <i class="fa-solid fa-bars"></i>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                        </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
 
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="color: #fff"
-                                            href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @endif
+                    </ul>
 
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="color: #fff"
-                                            href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a style="color: #fff" id="navbarDropdown" class="nav-link dropdown-toggle"
-                                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: #fff"
+                                        href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: #fff"
+                                        href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a style="color: #fff" id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
-            </nav>
-            <div class="py-4">
+            </div>
+        </nav>
+
+
+        <div id="content" class="bg-light d-flex" style="width: 100%;">
+
+            @auth
+                <nav id="sidebar">
+                    {{-- <div class="sidebar-header">
+                        <img src="/logo.png" alt="Logo UHB" style="width: 50px" height="50px">
+                        <h4 href="{{ url('/beranda') }}">
+                            SIMI
+                        </h4>
+                    </div> --}}
+                    <ul class="list-unstyled components">
+                        <li class="{{ Request::is('beranda') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/beranda') }}" style="color: #fff; ">
+                                <i class="fa-sharp fa-solid fa-home"></i> <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('data-masuk') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/data-masuk') }}" style="color: #fff">
+                                <i class="fa-sharp fa-solid fa-box"></i> <span>Data Barang Masuk</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ Request::is('data-penyimpanan') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/data-penyimpanan') }}" style="color: #fff">
+                                <i class="fa-sharp fa-solid fa-warehouse"></i> <span>Data Penyimpanan</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('data-peminjaman') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/data-peminjaman') }}" style="color: #fff">
+                                <i class="fa-sharp fa-solid fa-hand-holding"></i> <span>Data Peminjaman</span>
+                            </a>
+                        </li>
+                        {{-- <li class="{{ Request::is('data') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/data-masuk') }}" style="color: #fff">
+                                <i class="fa-sharp fa-solid fa-screwdriver-wrench"></i> <span>Data Perbaikan</span>
+                            </a>
+                        </li> --}}
+
+                    </ul>
+                </nav>
+            @endauth
+
+            <div class="py-4 d-flex justify-content-center align-items-top" style="width:100%">
                 @yield('content')
             </div>
+
         </div>
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -250,6 +277,9 @@
             }
         }
     </script>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
 
 </body>
 

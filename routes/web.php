@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controller\UserController;
+// use App\Http\Controller\UserController;
+
+// use App\Http\Controllers\DataMasukController;
+// use App\Http\Controllers\DataPenyimpananController;
+// use App\Http\Controllers\DataController;
+// use App\Exports\DataMasukExport;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,14 +15,32 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/beranda', [App\Http\Controllers\HomeController::class, 'index'])->name('beranda');
 
-Route::controller(App\Http\Controllers\DataBarangController::class)->group(function () {
-    Route::get('/data-barang', 'index')->name('data-barang');
-    Route::post('/import-data-barang', 'import_excel')->name('import-data-barang');
-    Route::post('/data-barang', 'store')->name('data-barang');
-    Route::put('/data-barang/{id}', 'update')->name('edit-data-barang');
-    Route::delete('/data-barang/{id}', 'destroy')->name('delete-data-barang');
+Route::controller(App\Http\Controllers\DataMasukController::class)->group(function () {
+    Route::get('/data-masuk', 'index')->name('data-masuk');
+    Route::post('/data-masuk', 'store')->name('data-masuk');
+    Route::put('/data-masuk/{id}', 'update')->name('edit-data-masuk');
+    Route::delete('/data-masuk/{id}', 'destroy')->name('delete-data-masuk');
+    Route::post('/import-data-masuk', 'import_excel')->name('import-data-masuk');
+    Route::get('/export-data-masuk', 'export_excel')->name('export-data-masuk');
 });
 
-// Route::post('/import-data-barang', [App\Http\Controllers\DataBarangController::class, 'import_excel'])->name('import-data-barang');
+Route::controller(App\Http\Controllers\DataPenyimpananController::class)->group(function () {
+    Route::get('/data-penyimpanan', 'index')->name('data-penyimpanan');
+    Route::post('/data-penyimpanan', 'store')->name('data-penyimpanan');
+    Route::put('/data-penyimpanan/{id}', 'update')->name('edit-data-penyimpanan');
+    Route::delete('/data-penyimpanan/{id}', 'destroy')->name('delete-data-penyimpanan');
+    Route::post('/import-data-penyimpanan', 'import_excel')->name('import-data-penyimpanan');
+    Route::get('/export-data-penyimpanan', 'export_excel')->name('export-data-penyimpanan');
+});
+
+
+Route::controller(App\Http\Controllers\DataPeminjamanController::class)->group(function () {
+    Route::get('/data-peminjaman', 'index')->name('data-peminjaman');
+    Route::post('/data-peminjaman', 'store')->name('data-peminjaman');
+    Route::put('/data-peminjaman/{id}', 'update')->name('edit-data-peminjaman');
+    Route::delete('/data-peminjaman/{id}', 'destroy')->name('delete-data-peminjaman');
+    Route::post('/import-data-peminjaman', 'import_excel')->name('import-data-peminjaman');
+    Route::get('/export-data-peminjaman', 'export_excel')->name('export-data-peminjaman');
+});

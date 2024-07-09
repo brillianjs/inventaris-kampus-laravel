@@ -4,17 +4,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex">
-                    <h5 class="modal-title" id="deleteModalLabel">Hapus Data Barang</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Hapus Data Barang Masuk</h5>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form method="post" action="{{ route('delete-data-barang', $row->kd_barang) }}">
+            <form method="post" action="{{ route('delete-data-masuk', $row->kd_barang) }}">
                 @csrf
                 @method('DELETE')
 
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data barang ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus Data Barang Masuk ini?</p>
                     {{-- <p>
                         Kode Barang : {{ $row->kd_barang }}
                     </p>

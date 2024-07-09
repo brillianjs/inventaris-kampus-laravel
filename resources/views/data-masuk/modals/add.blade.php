@@ -1,13 +1,16 @@
 <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahData" aria-hidden="true">
+
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTambahData">Tambah Data Barang</h5>
+                <h5 class="modal-title" id="modalTambahData">Tambah Data Barang Masuk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
+
+
             <!-- Form tambah data -->
-            <form method="post" action="{{ url('data-barang') }}">
+            <form method="post" action="{{ url('data-masuk') }}">
                 @csrf
 
                 <div class="modal-body">
@@ -24,17 +27,18 @@
                         <input type="text" class="form-control" id="merek_barang" name="merek_barang">
                     </div>
                     <div class="mb-3 mt-3">
-                        <label for="jumlah" class="form-label">Harga Barang</label>
+                        <label for="jml_barang" class="form-label">Jumlah Barang</label>
+                        <input type="number" class="form-control" id="jml_barang" name="jml_barang">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="hrg_barang" class="form-label">Harga Barang</label>
                         <input type="number" class="form-control" id="hrg_barang" name="hrg_barang">
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="sts_barang" class="form-label">Status Barang</label>
                         <select class="form-select" id="sts_barang" name="sts_barang">
-                            <!-- <option>Pilih Kondisi Barang</option> -->
-                            <option value="Baik">Baik</option>
-                            <option value="Rusak ringan">Rusak Ringan</option>
-                            <option value="Rusak sedang">Rusak Sedang</option>
-                            <option value="Disimpan">Disimpan</option>
+                            <option value="Baru">Baru</option>
+                            <option value="Bekas">Bekas</option>
                         </select>
                     </div>
 
