@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMasuk;
 use Illuminate\Http\Request;
 use App\Models\DataPeminjaman;
 
@@ -26,27 +27,23 @@ class DataPeminjamanController extends Controller
      */
     public function index()
     {
-        $data = DataPeminjaman::all();
-
-        return view('data-peminjaman.index', compact('data'));
+        $data = DataPeminjaman::with('dataBarang')->paginate(2);
+        $dataBarangList = DataMasuk::all();
+        // dd($data);
+        return view('data-peminjaman.index', compact('data'), compact('dataBarangList'));
     }
-
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $data = new DataPeminjaman();
-        $data->kode_barang = $request->kode_barang;
-        $data->item_barang = $request->item_barang;
-        $data->merek_barang = $request->merek_barang;
+        $data->id_barang = $request->id_barang;
         $data->jml_barang = (int) $request->jml_barang;
         $data->nama_peminjam = $request->nama_peminjam;
         $data->tgl_pinjam = $request->tgl_pinjam;
         $data->ket_pinjam = $request->ket_pinjam;
-
         $data->save();
         return back();
     }

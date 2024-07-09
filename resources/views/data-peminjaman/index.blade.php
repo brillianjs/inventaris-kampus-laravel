@@ -25,14 +25,13 @@
                             <thead>
                                 <tr class="align-middle text-center">
                                     <th>No</th>
-                                    <th>Kode Barang</th>
                                     <th>Item Barang</th>
                                     <th>Merek Barang</th>
                                     <th>Jumlah Barang </th>
                                     <th>Nama Peminjam</th>
                                     <th>Tanggal Peminjaman</th>
-                                    <th>Keterangan</th>
-                                    <!-- <th>Aksi</th> -->
+                                    <th>Status Peminjaman</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,23 +39,24 @@
                                 @foreach ($data as $row)
                                     <tr>
                                         <td class="text-center">{{ $no }}</td>
-                                        <td class="text-center">{{ $row->kode_barang }}</td>
-                                        <td class="text-center">{{ $row->item_barang }}</td>
-                                        <td class="text-center">{{ $row->merek_barang }}</td>
+                                        <td class="text-center">{{ $row->dataBarang->item_barang }}</td>
+                                        <td class="text-center">{{ $row->dataBarang->merek_barang}}</td>
                                         <td class="text-center">{{ $row->jml_barang }}</td>
                                         <td class="text-center">{{ $row->nama_peminjam }}</td>
                                         <td class="text-center">{{ $row->tgl_pinjam }}</td>
-                                        <td class="text-center">{{ $row->ket_pinjam }}</td>
-                                        <!-- <td class="text-center">
-                                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#modalEditData{{ $row->kode_barang }}">
-                                                            <i class="fa fa-edit"></i> Edit
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#modalHapusData{{ $row->kode_barang }}">
-                                                            <i class="fa fa-trash"></i> Hapus
-                                                        </button>
-                                                    </td> -->
+                                        <td class="text-center">
+                                            {{ $row->status_pinjam === "0" ? "Belum Dikembalikan" : "Sudah Dikembalikan" }}
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#modalDetailData{{ $row->id }}">
+                                                <i class="fa fa-eye"></i> Detail
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#modalEditData{{ $row->id }}">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php    $no++; ?>
                                 @endforeach
@@ -70,5 +70,6 @@
     </div>
 </div>
 @include('data-peminjaman.modals.add')
+@include('data-peminjaman.modals.edit')
 
 @endsection

@@ -11,12 +11,16 @@ class DataPeminjaman extends Model
 
     protected $table = 'data_peminjamen';
     protected $fillable = [
-        'kd_barang',
-        'item_barang',
-        'merek_barang',
+        'id_barang',
         'jml_barang',
         'nama_peminjam',
         'tgl_pinjam',
         'ket_pinjam',
+        'status_peminjaman'
     ];
+
+    public function dataBarang()
+    {
+        return $this->belongsTo(DataMasuk::class, 'id_barang');
+    }
 }

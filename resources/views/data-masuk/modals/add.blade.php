@@ -16,10 +16,10 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="kode" class="form-label">Kode Barang</label>
-                        <input type="number" class="form-control" id="kd_barang" name="kd_barang">
+                        <input type="string" class="form-control" id="kd_barang" name="kd_barang" value="">
                     </div>
                     <div class="mb-3 mt-3">
-                        <label for="item_barang" class="form-label">Item Barang</label>
+                        <label for="item_barang" class="form-label">Jenis Item Barang</label>
                         <input type="text" class="form-control" id="item_barang" name="item_barang">
                     </div>
                     <div class="mb-3 mt-3">
@@ -42,6 +42,7 @@
                         </select>
                     </div>
 
+
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
@@ -52,5 +53,23 @@
         </form>
     </div>
 </div>
+<script>
+    function generateRandomValue(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    // Memanggil fungsi generateRandomValue dengan panjang yang diinginkan, misalnya 6
+    var randomValue = generateRandomValue(8);
+
+    // Menggunakan DOM untuk menemukan input dengan id 'kd_barang' dan mengatur nilainya
+    document.getElementById('kd_barang').value = randomValue;
+
+</script>
 </div>
 <!-- Modal Tambah -->

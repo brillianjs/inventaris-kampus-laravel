@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('item_barang');
             $table->string('merek_barang');
             $table->integer('jml_barang');
+            $table->integer('stock_barang');
             $table->integer('hrg_barang');
             $table->string('sts_barang');
             $table->integer('total_harga')->default(0);

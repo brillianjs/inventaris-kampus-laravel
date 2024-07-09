@@ -35,14 +35,15 @@ class DataMasukController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = new DataMasuk();
         $data->kd_barang = $request->kd_barang;
         $data->item_barang = $request->item_barang;
         $data->merek_barang = $request->merek_barang;
         $data->jml_barang = (int) $request->jml_barang;
+        $data->stock_barang = (int) $request->jml_barang;
         $data->hrg_barang = (int) $request->hrg_barang;
         $data->sts_barang = $request->sts_barang;
-        $data->sts_tersedia = $request->sts_tersedia;
         $data->total_harga = (int) $request->jml_barang * (int) $request->hrg_barang; // Hitung total harga
 
         $data->save();

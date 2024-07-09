@@ -23,9 +23,9 @@
                                     <th>Item</th>
                                     <th>Merek</th>
                                     <th>Total Jumlah Barang</th>
-                                    <th>Total Harga Barang</th>
                                     <th>Status Barang</th>
-                                    {{-- <th>Aksi</th> --}}
+
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,12 +33,11 @@
                                 @foreach ($data as $row)
                                     <tr>
                                         <td class="text-center">{{ $no }}</td>
-                                        <!-- <td class="text-center">{{ $row->kd_barang }}</td> -->
-                                        <td class="text-center">{{ $row->dataMasuk->item_barang }}</td>
-                                        <td class="text-center">{{ $row->dataMasuk->merek_barang }}</td>
+                                        <td class="text-center">{{ $row->item_barang }}</td>
+                                        <td class="text-center">{{ $row->merek_barang }}</td>
                                         <td class="text-center">{{ $row->jml_barang }}</td>
-                                        <td class="text-center">{{ $row->total_harga }}</td>
-                                        <td class="text-center">{{ $row->sts_tersedia }}</td>
+                                        <td class="text-center">{{ $row->jml_barang >= 0 ? 'Ada' : 'Tidak Ada' }}</td>
+
                                         {{-- <td class="text-center">
                                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#modalEditData{{ $penyimpanan->kd_barang }}">

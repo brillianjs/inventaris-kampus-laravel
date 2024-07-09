@@ -17,13 +17,17 @@ class DataMasuk extends Model
         'item_barang',
         'merek_barang',
         'jml_barang',
+        'stock_barang',
         'hrg_barang',
         'sts_barang',
         'sts_tersedia',
     ];
 
-    // public function dataPenyimpanan()
-    // {
-    //     return $this->hasMany(DataPenyimpanan::class, 'kd_barang', 'kd_barang');
-    // }
+    public function peminjamans()
+    {
+        return $this->hasMany(DataPeminjaman::class);
+    }
+
+
+
 }

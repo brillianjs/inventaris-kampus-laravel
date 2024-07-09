@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="edit-kode" class="form-label">Kode Barang</label>
-                        <input type="number" value="{{ $row->kd_barang }}" class="form-control" id="edit_kode"
+                        <input type="text" disabled value="{{ $row->kd_barang }}" class="form-control" id="edit_kode"
                             name="kode">
                     </div>
                     <div class="mb-3 mt-3">
